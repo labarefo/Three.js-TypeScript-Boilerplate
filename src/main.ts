@@ -18,7 +18,8 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight)
 })
 
-new OrbitControls(camera, renderer.domElement)
+const constrols = new OrbitControls(camera, renderer.domElement)
+constrols.addEventListener('change', () => renderer.render(scene, camera))
 
 const geometry = new THREE.BoxGeometry()
 const material = new THREE.MeshNormalMaterial({ wireframe: true })
@@ -29,21 +30,22 @@ scene.add(cube)
 const stats = new Stats()
 document.body.appendChild(stats.dom)
 
-const clock = new THREE.Clock();
-let delta;
+// const clock = new THREE.Clock();
+// let delta;
 
 
 function animate() {
     requestAnimationFrame(animate)
 
-    delta = clock.getDelta();
-
-    cube.rotation.x += delta;
-    cube.rotation.y += delta;
-
-    renderer.render(scene, camera)
+    // delta = clock.getDelta();
+    //
+    // cube.rotation.x += delta;
+    // cube.rotation.y += delta;
+    //
+    // renderer.render(scene, camera)
 
     stats.update()
 }
 
 animate()
+renderer.render(scene, camera)
