@@ -73,61 +73,47 @@ renderer.domElement.addEventListener('dblclick', (e) => {
 
   if (intersects.length) {
     const p = intersects[0].point
+    bounceTo(p)
+  }
+})
 
-    //controls.target.set(p.x, p.y, p.z)
-
-    // JEasing the controls.target
-    // new JEASINGS.JEasing(controls.target)
-    //   .to(
-    //     {
-    //       x: p.x,
-    //       y: p.y,
-    //       z: p.z
-    //     },
-    //     500
-    //   )
-    //   .delay (200)
-    //   .easing(JEASINGS.Cubic.Out)
-    //   .onUpdate(() => render())
-    //   .start()
-
-    // slding x,z
-    new JEASINGS.JEasing(suzanne.position)
+const bounceTo = (p: THREE.Vector3) => {
+  // slding x,z
+  new JEASINGS.JEasing(suzanne.position)
       .to(
-        {
-          x: p.x,
-          z: p.z
-        },
-        500
+          {
+            x: p.x,
+            z: p.z
+          },
+          500
       )
       .start()
 
-    // going up
-    new JEASINGS.JEasing(suzanne.position)
+  // going up
+  new JEASINGS.JEasing(suzanne.position)
       .to(
-        {
-          y: p.y + 3
-        },
-        250
+          {
+            y: p.y + 3
+          },
+          250
       )
       .easing(JEASINGS.Cubic.Out)
       .start()
-    .onComplete(() => {
+      .onComplete(() => {
 
-      // going down
-      new JEASINGS.JEasing(suzanne.position)
-        .to(
-          {
-            y: p.y + 1
-          },
-          250
-        )
-        // .delay(250)
-        .easing(JEASINGS.Bounce.Out)
-        .start()
-    })
-  }
-})
+        // going down
+        new JEASINGS.JEasing(suzanne.position)
+            .to(
+                {
+                  y: p.y + 1
+                },
+                250
+            )
+            // .delay(250)
+            .easing(JEASINGS.Bounce.Out)
+            .start()
+      })
+}
 
 const stats = new Stats()
 document.body.appendChild(stats.dom)
