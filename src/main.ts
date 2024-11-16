@@ -58,7 +58,7 @@ new GLTFLoader().load('models/suzanne_scene.glb', (gltf) => {
 
   scene.add(gltf.scene)
 
-  render()
+  //render()
 })
 
 const raycaster = new THREE.Raycaster()
@@ -69,7 +69,7 @@ renderer.domElement.addEventListener('dblclick', (e) => {
 
   raycaster.setFromCamera(mouse, camera)
 
-  const intersects = raycaster.intersectObjects([suzanne, plane], false)
+  const intersects = raycaster.intersectObject(plane, false)
 
   if (intersects.length) {
     const p = intersects[0].point
@@ -77,55 +77,55 @@ renderer.domElement.addEventListener('dblclick', (e) => {
     //controls.target.set(p.x, p.y, p.z)
 
     // JEasing the controls.target
-    new JEASINGS.JEasing(controls.target)
-      .to(
-        {
-          x: p.x,
-          y: p.y,
-          z: p.z
-        },
-        500
-      )
-      // .delay (200)
-      .easing(JEASINGS.Cubic.Out)
-      .onUpdate(() => render())
-      .start()
-
-    // // slding x,z
-    // new JEASINGS.JEasing(suzanne.position)
+    // new JEASINGS.JEasing(controls.target)
     //   .to(
     //     {
     //       x: p.x,
+    //       y: p.y,
     //       z: p.z
     //     },
     //     500
     //   )
+    //   .delay (200)
+    //   .easing(JEASINGS.Cubic.Out)
+    //   .onUpdate(() => render())
     //   .start()
 
-    // // going up
-    // new JEASINGS.JEasing(suzanne.position)
-    //   .to(
-    //     {
-    //       y: p.y + 3
-    //     },
-    //     250
-    //   )
-    //   //.easing(JEASINGS.Cubic.Out)
-    //   .start()
-    // //.onComplete(() => {
+    // slding x,z
+    new JEASINGS.JEasing(suzanne.position)
+      .to(
+        {
+          x: p.x,
+          z: p.z
+        },
+        500
+      )
+      .start()
 
-    // // going down
-    // new JEASINGS.JEasing(suzanne.position)
-    //   .to(
-    //     {
-    //       y: p.y + 1
-    //     },
-    //     250
-    //   )
-    //   .delay(250)
-    //   //.easing(JEASINGS.Cubic.In)
-    //   .start()
-    // //})
+    // going up
+    new JEASINGS.JEasing(suzanne.position)
+      .to(
+        {
+          y: p.y + 3
+        },
+        250
+      )
+      .easing(JEASINGS.Cubic.Out)
+      .start()
+    .onComplete(() => {
+
+      // going down
+      new JEASINGS.JEasing(suzanne.position)
+        .to(
+          {
+            y: p.y + 1
+          },
+          250
+        )
+        // .delay(250)
+        .easing(JEASINGS.Bounce.Out)
+        .start()
+    })
   }
 })
 
@@ -141,7 +141,7 @@ function animate() {
 
   render()
 
-  // stats.update()
+  stats.update()
 }
 
 function render() {
