@@ -60,18 +60,18 @@ class Pickable extends Mesh {
     //   ? (this.position.y = lerp(this.position.y, 1, delta * 5))
     //   : (this.position.y = lerp(this.position.y, 0, delta * 5))
 
-    this.hovered
-      ? this.material.color.lerp(this.colorTo, delta * 10)
-      : this.material.color.lerp(this.defaultColor, delta * 10)
-
     // this.hovered
-    //   ? (this.material.color.lerp(this.colorTo, delta * 10),
-    //     (this.material.roughness = lerp(this.material.roughness, 0, delta * 10)),
-    //     (this.material.metalness = lerp(this.material.metalness, 1, delta * 10))
-    //     )
-    //   : (this.material.color.lerp(this.defaultColor, delta),
-    //     (this.material.roughness = lerp(this.material.roughness, 1, delta)),
-    //     (this.material.metalness = lerp(this.material.metalness, 0, delta)))
+    //   ? this.material.color.lerp(this.colorTo, delta * 10)
+    //   : this.material.color.lerp(this.defaultColor, delta * 10)
+
+    this.hovered
+      ? (this.material.color.lerp(this.colorTo, delta * 10),
+        (this.material.roughness = lerp(this.material.roughness, 0, delta * 10)),
+        (this.material.metalness = lerp(this.material.metalness, 1, delta * 10))
+        )
+      : (this.material.color.lerp(this.defaultColor, delta),
+        (this.material.roughness = lerp(this.material.roughness, 1, delta)),
+        (this.material.metalness = lerp(this.material.metalness, 0, delta)))
 
     // this.clicked
     //   ? this.scale.set(
