@@ -32,13 +32,13 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.target.y = 0.75
 controls.enableDamping = true
 
-const loader = new GLTFLoader()
-let suvBody: THREE.Object3D
-await loader.loadAsync('models/suv_body.glb').then((gltf) => {
-  suvBody = gltf.scene
-})
-loader.load('models/suv_wheel.glb', function (gltf) {
-  const wheels = [gltf.scene, gltf.scene.clone(), gltf.scene.clone(), gltf.scene.clone()]
+async function loadCar() {
+  const loader = new GLTFLoader()
+  const [...model] = await Promise.all([loader.loadAsync('models/suv_body.glb'), loader.loadAsync('models/suv_wheel.glb')])
+
+  const suvBody = model[0].scene
+  const wheels = [model[1].scene, model[1].scene.clone(), model[1].scene.clone(), model[1].scene.clone()]
+
   wheels[0].position.set(-0.65, 0.2, -0.77)
   wheels[1].position.set(0.65, 0.2, -0.77)
   wheels[1].rotateY(Math.PI)
@@ -46,8 +46,10 @@ loader.load('models/suv_wheel.glb', function (gltf) {
   wheels[3].position.set(0.65, 0.2, 0.57)
   wheels[3].rotateY(Math.PI)
   suvBody.add(...wheels)
+
   scene.add(suvBody)
-})
+}
+await loadCar()
 
 const stats = new Stats()
 document.body.appendChild(stats.dom)
