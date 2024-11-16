@@ -58,7 +58,7 @@ new GLTFLoader().load('models/suzanne_scene.glb', (gltf) => {
 
   scene.add(gltf.scene)
 
-  //render()
+  render()
 })
 
 const raycaster = new THREE.Raycaster()
@@ -86,7 +86,7 @@ renderer.domElement.addEventListener('dblclick', (e) => {
         },
         500
       )
-      .delay (200)
+      // .delay (200)
       .easing(JEASINGS.Cubic.Out)
       .onUpdate(() => render())
       .start()
@@ -141,7 +141,7 @@ function animate() {
 
   render()
 
-  stats.update()
+  // stats.update()
 }
 
 function render() {
