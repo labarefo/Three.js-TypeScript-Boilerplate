@@ -32,26 +32,31 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.target.y = 0.75
 controls.enableDamping = true
 
+let suvBody: THREE.Object3D;
 const loader = new GLTFLoader()
 loader.load('models/suv_body.glb', (gltf) => {
-  scene.add(gltf.scene)
-})
-loader.load('models/suv_wheel.glb', (gltf) => {
-  gltf.scene.position.set(-0.65, 0.2, -0.77)
-  scene.add(gltf.scene)
-})
-loader.load('models/suv_wheel.glb', (gltf) => {
-  gltf.scene.position.set(0.65, 0.2, -0.77)
-  gltf.scene.rotateY(Math.PI)
-  scene.add(gltf.scene)
-})
-loader.load('models/suv_wheel.glb', (gltf) => {
-  gltf.scene.position.set(-0.65, 0.2, 0.57)
-  scene.add(gltf.scene)
-})
-loader.load('models/suv_wheel.glb', (gltf) => {
-  gltf.scene.position.set(0.65, 0.2, 0.57)
-  gltf.scene.rotateY(Math.PI)
+
+  suvBody = gltf.scene
+
+  loader.load('models/suv_wheel.glb', (gltf) => {
+    gltf.scene.position.set(-0.65, 0.2, -0.77)
+    suvBody.add(gltf.scene)
+  })
+  loader.load('models/suv_wheel.glb', (gltf) => {
+    gltf.scene.position.set(0.65, 0.2, -0.77)
+    gltf.scene.rotateY(Math.PI)
+    suvBody.add(gltf.scene)
+  })
+  loader.load('models/suv_wheel.glb', (gltf) => {
+    gltf.scene.position.set(-0.65, 0.2, 0.57)
+    suvBody.add(gltf.scene)
+  })
+  loader.load('models/suv_wheel.glb', (gltf) => {
+    gltf.scene.position.set(0.65, 0.2, 0.57)
+    gltf.scene.rotateY(Math.PI)
+    suvBody.add(gltf.scene)
+  })
+
   scene.add(gltf.scene)
 })
 
