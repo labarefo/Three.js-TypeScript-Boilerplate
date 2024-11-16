@@ -38,23 +38,15 @@ loader.load('models/suv_body.glb', (gltf) => {
 
   suvBody = gltf.scene
 
-  loader.load('models/suv_wheel.glb', (gltf) => {
-    gltf.scene.position.set(-0.65, 0.2, -0.77)
-    suvBody.add(gltf.scene)
-  })
-  loader.load('models/suv_wheel.glb', (gltf) => {
-    gltf.scene.position.set(0.65, 0.2, -0.77)
-    gltf.scene.rotateY(Math.PI)
-    suvBody.add(gltf.scene)
-  })
-  loader.load('models/suv_wheel.glb', (gltf) => {
-    gltf.scene.position.set(-0.65, 0.2, 0.57)
-    suvBody.add(gltf.scene)
-  })
-  loader.load('models/suv_wheel.glb', (gltf) => {
-    gltf.scene.position.set(0.65, 0.2, 0.57)
-    gltf.scene.rotateY(Math.PI)
-    suvBody.add(gltf.scene)
+  loader.load('models/suv_wheel.glb', function (gltf) {
+    const wheels = [gltf.scene, gltf.scene.clone(), gltf.scene.clone(), gltf.scene.clone()]
+    wheels[0].position.set(-0.65, 0.2, -0.77)
+    wheels[1].position.set(0.65, 0.2, -0.77)
+    wheels[1].rotateY(Math.PI)
+    wheels[2].position.set(-0.65, 0.2, 0.57)
+    wheels[3].position.set(0.65, 0.2, 0.57)
+    wheels[3].rotateY(Math.PI)
+    suvBody.add(...wheels)
   })
 
   scene.add(gltf.scene)
